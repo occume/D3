@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.d3</groupId>
+  <artifactId>D3</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <modules>
+		<module>D3-Std</module>
+    </modules>
+
+	<build>
+		<plugins>
+			<plugin>  
+			  <groupId>org.apache.maven.plugins</groupId>  
+			  <artifactId>maven-compiler-plugin</artifactId>  
+			  <configuration>  
+				<source>7</source>  
+				<target>7</target>  
+				<encoding>UTF-8</encoding>  
+			  </configuration>
+			  <version>3.1</version>  
+			</plugin>  
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+      		<artifactId>testng</artifactId>
+      		<version>6.8</version>
+      		<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0</version>
+		</dependency>
+	</dependencies>
+  
+</project>
