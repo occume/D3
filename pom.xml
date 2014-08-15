@@ -11,6 +11,7 @@
   
   <modules>
 		<module>D3-Std</module>
+		<module>D3-Server</module>
     </modules>
 
 	<build>
@@ -21,7 +22,7 @@
 			  <configuration>  
 				<source>7</source>  
 				<target>7</target>  
-				<encoding>UTF-8</encoding>  
+				<encoding>UTF-8</encoding>
 			  </configuration>
 			  <version>3.1</version>  
 			</plugin>  

@@ -13,7 +13,7 @@ public class LookupFile {
 	private static ExecutorService executor = Executors.newFixedThreadPool(8);
 
 	public static void main(String[] args) throws InterruptedException {
-		lookup("global_config1");
+		lookup("TCP");
 	}
 	
 	public static File lookup(String name) throws InterruptedException{
