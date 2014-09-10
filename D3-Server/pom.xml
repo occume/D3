@@ -17,14 +17,15 @@
 					</descriptors>
 					<archive>
 						<manifest>
-							<mainClass>org.d3.SimpleServer</mainClass>
+						<!-- 	<mainClass>org.d3.SimpleServer</mainClass> -->
+						<mainClass>org.d3.zk.app.conf.ConfigWatcher</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
-<descriptorRef>
-jar-with-dependencies
-</descriptorRef>
-</descriptorRefs>
+						<descriptorRef>
+							jar-with-dependencies
+						</descriptorRef>
+					</descriptorRefs>
 				</configuration>
 				<executions>
 					<execution>
@@ -41,10 +42,22 @@ jar-with-dependencies
   </build>
   
   <dependencies>
-  	<dependency>
+  		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>5.0.0.Alpha1</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		 -->
+		 <dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>2.6.0</version>
 		</dependency>
   </dependencies>
   

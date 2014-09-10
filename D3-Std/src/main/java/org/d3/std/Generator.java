@@ -20,8 +20,8 @@ public class Generator {
 		return ret;
 	}
 
-	public static int[] intArray(int length, int max){
-		int[] ret = new int[length];
+	public static Integer[] intArray(int length, int max){
+		Integer[] ret = new Integer[length];
 		for(int i = 0; i < length; i++){
 			ret[i] = random.nextInt(max);
 		}

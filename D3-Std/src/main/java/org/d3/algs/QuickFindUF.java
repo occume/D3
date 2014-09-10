@@ -89,6 +89,13 @@ public class QuickFindUF {
         count--;
     }
 
+    public void print(){
+    	for(int i = 0; i < id.length; i++){
+    		System.out.print(id[i]);
+    	}
+    	System.out.println();
+    }
+    
     /**
      * Reads in a sequence of pairs of integers (between 0 and N-1) from standard input, 
      * where each integer represents some object;
@@ -106,6 +113,7 @@ public class QuickFindUF {
             StdOut.println(p + " " + q);
         }
         StdOut.println(uf.count() + " components");
+        uf.print();
     }
 
 }

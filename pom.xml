@@ -12,7 +12,8 @@
   <modules>
 		<module>D3-Std</module>
 		<module>D3-Server</module>
-    </modules>
+		<module>D3-Hadoop</module>
+  </modules>
 
 	<build>
 		<plugins>
