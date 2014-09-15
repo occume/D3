@@ -22,6 +22,8 @@ public class GatewayServerInitor extends ChannelInitializer<SocketChannel> {
 	private StringDecoder stringDecoder;
 	@Autowired
 	private StringEncoder stringEncoder;
+	@Autowired
+	private ReportHandler reportHandler;
 	
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
@@ -37,7 +39,7 @@ public class GatewayServerInitor extends ChannelInitializer<SocketChannel> {
 	private void reportNodeConnect(SocketChannel ch) {
 		ch.pipeline().addLast(stringDecoder);
 		ch.pipeline().addLast(stringEncoder);
-		ch.pipeline().addLast(new ReportHandler());
+		ch.pipeline().addLast(reportHandler);
 //		ch.pipeline().remove(this);
 	}
 
