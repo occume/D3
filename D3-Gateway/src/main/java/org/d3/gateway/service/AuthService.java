@@ -1,9 +1,7 @@
 package org.d3.gateway.service;
 
-public class AuthService {
+public interface AuthService {
 	
-	public boolean inBlackList(String host){
-		return false;
-	}
+	public boolean inBlackList(String host);
 	
 }

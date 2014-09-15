@@ -13,12 +13,12 @@ public class Launcher {
 		
 		ApplicationContext context = new AnnotationConfigApplicationContext(D3SpringConfig.class);
 //		Arrayi
-		System.out.println(context.getBeanDefinitionNames());
-		for(String name: context.getBeanDefinitionNames()){
-			System.out.println(name);
-		}
-//		Bootstrap b = (Bootstrap) context.getBean("bootstrap");
-//		b.lanucher();
+//		System.out.println(context.getBeanDefinitionNames());
+//		for(String name: context.getBeanDefinitionNames()){
+//			System.out.println(name);
+//		}
+		Bootstrap b = (Bootstrap) context.getBean("bootstrap");
+		b.lanucher();
 		
 	}
 

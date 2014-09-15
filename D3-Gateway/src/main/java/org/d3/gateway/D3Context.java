@@ -25,7 +25,7 @@ public class D3Context implements ApplicationContextAware{
 	}
 	
 	
-	@PostConstruct
+	//@PostConstruct
 	public void start() {
 //		initGames();
 	}

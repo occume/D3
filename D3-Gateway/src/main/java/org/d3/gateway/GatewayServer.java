@@ -22,6 +22,8 @@ public class GatewayServer implements Server{
 	public void start() {
 		try {
 			
+			GatewayServerInitor initor = (GatewayServerInitor) D3Context.getBean("gatewayServerInitor");
+			
 			boss = new NioEventLoopGroup(2, new NamedThreadFactory("D3-Gateway-BOSS"));
 			worker = new NioEventLoopGroup(2, new NamedThreadFactory("D3-Gateway-WORKER"));
 			
@@ -29,7 +31,7 @@ public class GatewayServer implements Server{
 			b.group(boss, worker)
 			 .channel(NioServerSocketChannel.class)
 			 .handler(new LoggingHandler())
-			 .childHandler(new GatewayServerInitor())
+			 .childHandler(initor)
 			 .option(ChannelOption.SO_BACKLOG, 128)
              .childOption(ChannelOption.SO_KEEPALIVE, true);
 			
