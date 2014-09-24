@@ -51,4 +51,13 @@ public class Printer {
 		}
 	}
 	
+	
+	public static void printByteArray(byte[] a) {
+        int N = a.length;
+        StdOut.println("length = " + N);
+        for (int i = 0; i < N; i++) {
+            StdOut.printf("%1d ", a[i]);
+        }
+        StdOut.println();
+    }
 }
