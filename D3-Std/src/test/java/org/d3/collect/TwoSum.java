@@ -92,7 +92,7 @@ public class TwoSum {
         In in = new In("../../../8Kints.txt");
         int[] a = in.readAllInts();
         printAll(a);
-        Stopwatch timer = new Stopwatch();
+        Stopwatch timer = Stopwatch.newStopwatch();
         int cnt = count(a);
         StdOut.println("elapsed time = " + timer.elapsedTime());
         StdOut.println(cnt);

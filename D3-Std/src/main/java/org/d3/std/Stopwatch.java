@@ -25,10 +25,13 @@ public class Stopwatch {
     /**
      * Initialize a stopwatch object.
      */
-    public Stopwatch() {
+    private Stopwatch() {
         start = System.currentTimeMillis();
-    } 
+    }
 
+    public static Stopwatch newStopwatch(){
+    	return new Stopwatch();
+    }
 
     /**
      * Returns the elapsed time (in seconds) since this object was created.
@@ -36,6 +39,14 @@ public class Stopwatch {
     public double elapsedTime() {
         long now = System.currentTimeMillis();
         return (now - start) / 1000.0;
+    }
+    
+    /**
+     * Returns the elapsed time (in seconds) since this object was created.
+     */
+    public long longTime() {
+        long now = System.currentTimeMillis();
+        return (now - start);
     }
 
 } 

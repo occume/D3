@@ -95,7 +95,7 @@ public class ThreeSum {
         In in = new In("../../../Kints.txt");
         int[] a = in.readAllInts();
         printAll(a);
-        Stopwatch timer = new Stopwatch();
+        Stopwatch timer = Stopwatch.newStopwatch();
         int cnt = count(a);
         StdOut.println("elapsed time = " + timer.elapsedTime());
         StdOut.println(cnt);

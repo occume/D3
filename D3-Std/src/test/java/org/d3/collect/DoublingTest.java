@@ -48,7 +48,7 @@ public class DoublingTest {
         for (int i = 0; i < N; i++) {
             a[i] = StdRandom.uniform(-MAX, MAX);
         }
-        Stopwatch timer = new Stopwatch();
+        Stopwatch timer = Stopwatch.newStopwatch();
         int cnt = ThreeSumFast.count(a);
         return timer.elapsedTime();
     }
