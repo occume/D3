@@ -4,14 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.d3</groupId>
   <artifactId>D3</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>pom</packaging>
   
   <modules>
 		<module>D3-Std</module>
 		<module>D3-Server</module>
 		<module>D3-Hadoop</module>
-    <module>D3-Gateway</module>
+    	<module>D3-Gateway</module>
+    	<module>D3-Spider</module>
   </modules>
 
 	<build>
@@ -25,7 +26,16 @@
 				<encoding>UTF-8</encoding>
 			  </configuration>
 			  <version>3.1</version>  
-			</plugin>  
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <forkMode>pertest</forkMode>
+                    <argLine>-Xms1024m -Xmx1024m -Xss1m </argLine>
+                </configuration>
+            </plugin>
+            
 		</plugins>
 	</build>
 

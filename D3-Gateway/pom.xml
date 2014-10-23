@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.d3</groupId>
     <artifactId>D3</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
   </parent>
   <groupId>org.d3</groupId>
   <artifactId>D3-Gateway</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>D3-Gateway</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>org.d3</groupId>
     		<artifactId>D3-Std</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+    		<version>0.0.1</version>
     	</dependency>
     <dependency>
       <groupId>junit</groupId>
