@@ -3,8 +3,62 @@
   <parent>
     <groupId>org.d3</groupId>
     <artifactId>D3</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>D3-Std</artifactId>
-  <build/>
+  
+  <build>
+  	<plugins>
+		<plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/resources/assembly.xml</descriptor>
+					</descriptors>
+					<archive>
+						<manifest>
+						<!-- 	<mainClass>org.d3.SimpleServer</mainClass> -->
+						<mainClass>org.d3.performance.NetUsage</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>
+							jar-with-dependencies
+						</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-run</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<version>2.4</version>
+		</plugin>
+	</plugins>
+  </build>
+  
+  <dependencies>
+  	<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+  </dependencies>
+  
 </project>

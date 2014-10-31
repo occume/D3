@@ -9,13 +9,17 @@ import com.google.common.collect.Maps;
 
 public class Printer {
 	
-	public static void printObject(Object add) throws Exception{
+	public static void printObject(Object add, String contained) throws Exception{
 		
 		Map<String, String> mnames = Maps.newHashMap();
 		int maxLen = -1;
 		
 		Method[] methods = add.getClass().getMethods();
 		for(Method m: methods){
+			if(!contained.equals("")){
+				if(!m.getName().contains(contained))
+					continue;
+			}
 			if(!m.isVarArgs()){
 				Object ret = null;
 				try{

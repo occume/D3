@@ -35,4 +35,11 @@ public class Generator {
 		}
 		return ret;
 	}
+	
+	public static byte[] byteArray(int length){
+		byte[] ret = new byte[length];
+		random.nextBytes(ret);
+		return ret;
+	}
+	
 }
