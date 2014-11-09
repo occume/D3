@@ -1,5 +1,7 @@
 package org.d3.std;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import com.google.common.math.DoubleMath;
@@ -40,6 +42,14 @@ public class Generator {
 		byte[] ret = new byte[length];
 		random.nextBytes(ret);
 		return ret;
+	}
+	
+	public static Collection<String> stringCollection(int size){
+		Collection<String> c = new ArrayList<String>();
+		for(int i = 0; i < size; i++){
+			c.add("" + i);
+		}
+		return c;
 	}
 	
 }

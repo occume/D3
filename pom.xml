@@ -13,6 +13,7 @@
 		<module>D3-Hadoop</module>
     	<module>D3-Gateway</module>
     	<module>D3-Spider</module>
+    	<module>D3-Test</module>
   </modules>
 
 	<build>

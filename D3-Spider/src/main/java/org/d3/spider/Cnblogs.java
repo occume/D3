@@ -10,7 +10,7 @@ import us.codecraft.webmagic.model.annotation.TargetUrl;
  * @author code4crafter@gmail.com
  * @date 14-4-11
  */
-@TargetUrl("http://www.cnblogs.com/asdf")
+@TargetUrl("http://www.cnblogs.com/[#\\-p]*")
 @ExtractBy(value = "//div[@id=\"post_list\"]/div",multi = true)
 public class Cnblogs {
 
