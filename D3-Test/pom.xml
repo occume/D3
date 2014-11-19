@@ -9,11 +9,25 @@
   <build/>
   
   <dependencies>
+  
   	<dependency>
 		<groupId>org.d3</groupId>
     	<artifactId>D3-Std</artifactId>
    		<version>0.0.1</version>
    	</dependency>
+   	
+   	<dependency>
+		<groupId>org.fusesource.leveldbjni</groupId>
+		<artifactId>leveldbjni-all</artifactId>
+		<version>1.8</version>
+	</dependency>
+	
+	<dependency>
+        <groupId>com.esotericsoftware</groupId>
+        <artifactId>kryo</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+   	
   </dependencies>
   
 </project>

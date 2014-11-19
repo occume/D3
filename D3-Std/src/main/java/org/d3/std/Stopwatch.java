@@ -20,7 +20,7 @@ package org.d3.std;
 
 public class Stopwatch { 
 
-    private final long start;
+    private long start;
 
     /**
      * Initialize a stopwatch object.
@@ -47,6 +47,10 @@ public class Stopwatch {
     public long longTime() {
         long now = System.currentTimeMillis();
         return (now - start);
+    }
+    
+    public void clear(){
+    	start = System.currentTimeMillis();
     }
 
 } 
