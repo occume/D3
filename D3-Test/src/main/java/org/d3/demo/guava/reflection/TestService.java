@@ -1,9 +1,7 @@
-package org.d3.server;
+package org.d3.demo.guava.reflection;
 
 import java.util.Collections;
 import java.util.List;
-
-import org.d3.client.Test;
 
 public class TestService implements Test {
 
@@ -18,9 +16,8 @@ public class TestService implements Test {
 	}
 
 	@Override
-	public List<String> order(List<String> list) {
+	public List<String> order(List<String> list, String str, Object obj, byte[] bytes) {
 		Collections.sort(list);
-		System.out.println("after server sorted: " + list);
 		return list;
 	}
 	

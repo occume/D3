@@ -1,10 +1,14 @@
 package org.d3.client;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.d3.rpc.manage.World;
 import org.d3.rpc.net.client.NettyClient;
 import org.d3.rpc.net.proxy.Proxies;
+
+import com.google.common.collect.Lists;
 
 public class NettyClientTest {
 
@@ -19,8 +23,13 @@ public class NettyClientTest {
 		System.out.println(World.defaultChannelGroup().next());
 		
 		Test test = Proxies.getProxy(Test.class);
-		String result = test.testString();
-		System.out.println("client result: " + result);
+//		String result = test.testString();
+//		System.out.println("client result: " + result);
+		List<String> list = Lists.newArrayList("b", "c", "a");
+		List<String> afterSorted = test.order(list);
+		afterSorted = test.order(list);
+		afterSorted = test.order(list);
+		System.out.println(afterSorted);
 	}
 
 }

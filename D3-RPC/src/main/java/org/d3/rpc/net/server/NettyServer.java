@@ -3,6 +3,7 @@ package org.d3.rpc.net.server;
 import org.d3.rpc.net.handler.RequestDecoder;
 import org.d3.rpc.net.handler.RequestHandler;
 import org.d3.rpc.net.handler.ResponseEncoder;
+import org.d3.rpc.net.handler.exception.ExceptionHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -39,6 +40,7 @@ public class NettyServer {
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(new RequestDecoder());
 					ch.pipeline().addLast(new ResponseEncoder());
+					ch.pipeline().addLast(new ExceptionHandler());
 					ch.pipeline().addLast(new RequestHandler());
 				}
 				

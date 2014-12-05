@@ -2,11 +2,8 @@ package org.d3.rpc.net.handler;
 
 import org.d3.rpc.net.bean.Response;
 import org.d3.rpc.net.serializer.Kryos;
-import org.d3.std.Binaries;
-
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Output;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -24,9 +21,6 @@ public class ResponseEncoder extends MessageToByteEncoder<Response> {
 		Output output = new Output(1024);
 
 		kryo.writeObject(output, msg);
-		System.out.println(msg);
-		System.out.println("write bytes:" + output.toBytes().length);
-		System.out.println(Binaries.BinaryToHexString(output.toBytes()));
 		out.writeBytes(output.toBytes());
 		output.close();
 

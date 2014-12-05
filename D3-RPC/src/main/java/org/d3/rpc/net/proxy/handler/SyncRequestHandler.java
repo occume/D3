@@ -17,7 +17,7 @@ public class SyncRequestHandler implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		Request request = new Request(serviceName, method.getName(), args);
+		Request request = new Request(serviceName, method, args);
 		Object result = SyncDispatchStrategy.ROUND.dispatch(request);
 		return result;
 	}

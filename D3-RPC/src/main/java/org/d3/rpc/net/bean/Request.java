@@ -1,16 +1,20 @@
 package org.d3.rpc.net.bean;
 
+import java.lang.reflect.Method;
+
 public class Request {
 	
 	private long id;
 	private String serviceName;
-	private String methodName;
-	private Object[] args;
+	private MethodEntry methodEntry;
 	
 	public Request(String serviceName, String methodName, Object[] args) {
 		this.serviceName = serviceName;
-		this.methodName = methodName;
-		this.args = args;
+	}
+	
+	public Request(String serviceName, Method method, Object[] args) {
+		this.serviceName = serviceName;
+		this.methodEntry = new MethodEntry(method, args);
 	}
 	
 	public long getId() {
@@ -25,25 +29,19 @@ public class Request {
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
-	public String getMethodName() {
-		return methodName;
-	}
-	public void setMethodName(String methodName) {
-		this.methodName = methodName;
+	
+	public MethodEntry getMethodEntry() {
+		return methodEntry;
 	}
 
-	public Object[] getArgs() {
-		return args;
-	}
-
-	public void setArgs(Object[] args) {
-		this.args = args;
+	public void setMethodEntry(MethodEntry methodEntry) {
+		this.methodEntry = methodEntry;
 	}
 
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", serviceName=" + serviceName
-				+ ", methodName=" + methodName + "]";
+				+ ", methodEntry=" + methodEntry + "]";
 	}
-	
+
 }

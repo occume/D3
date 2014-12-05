@@ -1,16 +1,17 @@
 package org.d3.server;
 
-import org.d3.rpc.net.server.Box;
+import org.d3.rpc.net.server.Engine;
+import org.d3.rpc.net.server.SimpleEngine;
 
 public class Server {
 
 	public static void main(String[] args) {
 		
-		Box box = Box.instance();
-		box.start();
-		box.register(new TestService());
+		Engine engine = SimpleEngine.instance();
+		engine.launch();
+		engine.registerService(new TestService());
 		
-		System.out.println(box.getAllServices());
+		System.out.println(engine.getAllServices());
 	}
 
 }

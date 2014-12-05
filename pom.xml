@@ -15,6 +15,7 @@
     	<module>D3-Spider</module>
     	<module>D3-Test</module>
     	<module>D3-RPC</module>
+    	<module>D3-Bukkit</module>
   </modules>
 
 	<build>
@@ -52,6 +53,11 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>net.sf.trove4j</groupId>
+		  <artifactId>trove4j</artifactId>
+		  <version>3.0.3</version>
 		</dependency>
 	</dependencies>
   
