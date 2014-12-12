@@ -1,18 +1,23 @@
-package org.d3.rpc.net.client;
+package org.d3.rpc.net.node.client;
 
+import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 
-import org.d3.rpc.manage.EventLoopGroups;
-import org.d3.rpc.net.handler.RequestDecoder;
+import org.d3.rpc.net.codec.LengthBasedDecoder;
+import org.d3.rpc.net.codec.LengthBasedEncoder;
+import org.d3.rpc.net.handler.JoinGroupHandler;
 import org.d3.rpc.net.handler.RequestEncoder;
 import org.d3.rpc.net.handler.ResponseDecoder;
-import org.d3.rpc.net.handler.ResponseHandler;
-import org.d3.rpc.net.handler.StringRequestHandler;
 import org.d3.rpc.net.handler.exception.ExceptionHandler;
+import org.d3.rpc.net.node.SimpleNode;
+import org.d3.rpc.util.ThreadPools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -22,18 +27,24 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.FutureListener;
 
-public class NettyClient {
+public class SimpleClient extends SimpleNode implements Client{
 	
 	private Map<ChannelOption<? extends Object>, Object> options = new HashMap<ChannelOption<? extends Object>, Object>();
 	
 	private Bootstrap bootstrap;
 	
-	private EventLoopGroup worker = EventLoopGroups.cpuCountEventLoopGroup("D3-RPC-WORKER");
+	private EventLoopGroup worker = ThreadPools.cpuCountEventLoopGroup("D3-RPC-WORKER");
 	
-	public NettyClient(){
+	private static final int CHANNEL_PER_NODE = 5;
+	
+	private CountDownLatch wait4Start = new CountDownLatch(5);
+	
+	private Logger LOG = LoggerFactory.getLogger(SimpleClient.class);
+	
+	public SimpleClient(){
 		
 		init();
 		
@@ -77,23 +88,29 @@ public class NettyClient {
 		
 		bootstrap.group(worker);
 		bootstrap.channel(NioSocketChannel.class);
-		bootstrap.handler(getInitor());
+		bootstrap.handler(initor());
 		
 		for(SocketAddress socketAddress: addressSet){
-			ChannelFuture future = bootstrap.connect(socketAddress);
-			future.addListener(new ChannelFutureListener() {
-				@Override
-				public void operationComplete(ChannelFuture future) throws Exception {
-					if(!future.isSuccess()){
-						System.out.println("connect not success");
+			InetSocketAddress isa = (InetSocketAddress) socketAddress;
+			System.out.println("port: " + isa.getPort());
+			for(int i = 0; i < CHANNEL_PER_NODE; i++){
+				ChannelFuture future = bootstrap.connect(socketAddress);
+				future.addListener(new ChannelFutureListener() {
+					@Override
+					public void operationComplete(ChannelFuture future) throws Exception {
+						if(future.isSuccess()){
+							System.out.println("connect success");
+						}
 					}
-					else{
-						System.out.println("connect success");
-					}
-				}
-			});
+				});
+//				try {
+//					future.await();
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+			}
 			try {
-				future.sync();
+				wait4Start.await();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -101,14 +118,16 @@ public class NettyClient {
 		
 	}
 	
-	private ChannelInitializer<SocketChannel> getInitor(){
+	private ChannelInitializer<SocketChannel> initor(){
 		return new ChannelInitializer<SocketChannel>(){
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {
-				ch.pipeline().addLast(new RequestEncoder());
-				ch.pipeline().addLast(new ResponseDecoder());
+//				ch.pipeline().addLast(new RequestEncoder());
+//				ch.pipeline().addLast(new ResponseDecoder());
+				ch.pipeline().addLast(new LengthBasedEncoder());
+				ch.pipeline().addLast(new LengthBasedDecoder());
 				ch.pipeline().addLast(new ExceptionHandler());
-				ch.pipeline().addLast(new ResponseHandler());
+				ch.pipeline().addLast(new JoinGroupHandler(wait4Start, SimpleClient.this));
 			}
 		};
 	}
@@ -119,6 +138,29 @@ public class NettyClient {
 
 	public void setOptions(Map<ChannelOption<? extends Object>, Object> options) {
 		this.options = options;
+	}
+	
+	public EventLoopGroup getWorker(){
+		return worker;
+	}
+
+	@Override
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void shutDown() {
+		Future f = worker.shutdownGracefully();
+		f.addListener(new FutureListener() {
+			@Override
+			public void operationComplete( Future future) throws Exception {
+				if(future.isSuccess()){
+					LOG.info("Client is shutdown");
+				}
+			}
+		});
+	}
+
+	@Override
+	public NodeType type() {
+		return NodeType.CLIENT;
 	}
 
 }

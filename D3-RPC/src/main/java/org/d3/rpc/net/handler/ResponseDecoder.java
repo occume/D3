@@ -22,9 +22,12 @@ public class ResponseDecoder extends ByteToMessageDecoder {
 		
 		Input input = new Input(bytes);
 		
-		Response req = kryo.readObject(input, Response.class);
-		input.close();
-		out.add(req);
+		if(input.available() > 0){
+			Response req = kryo.readObject(input, Response.class);
+			input.close();
+			out.add(req);
+		}
+		
 	}
 
 }

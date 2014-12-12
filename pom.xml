@@ -15,7 +15,7 @@
     	<module>D3-Spider</module>
     	<module>D3-Test</module>
     	<module>D3-RPC</module>
-    	<module>D3-Bukkit</module>
+    	<module>D3-Monitor</module>
   </modules>
 
 	<build>

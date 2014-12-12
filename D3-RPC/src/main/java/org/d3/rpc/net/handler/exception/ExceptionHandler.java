@@ -8,6 +8,7 @@ public class ExceptionHandler extends ChannelHandlerAdapter {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
+		cause.printStackTrace();
 		System.err.println(cause.getMessage());
 	}
 

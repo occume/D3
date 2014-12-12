@@ -2,9 +2,8 @@ package org.d3.rpc.net.bean;
 
 import java.lang.reflect.Method;
 
-public class Request {
+public class Request extends Message{
 	
-	private long id;
 	private String serviceName;
 	private MethodEntry methodEntry;
 	
@@ -17,12 +16,6 @@ public class Request {
 		this.methodEntry = new MethodEntry(method, args);
 	}
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public String getServiceName() {
 		return serviceName;
 	}

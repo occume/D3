@@ -9,7 +9,7 @@ public class TestService implements Test {
 
 	@Override
 	public void test() {
-		System.out.println("TestService on server");
+		System.out.println("TestService on client");
 	}
 
 	@Override

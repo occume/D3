@@ -1,5 +1,7 @@
 package org.d3.rpc.net.dispatcher.sync;
 
+import java.util.concurrent.TimeUnit;
+
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -7,6 +9,7 @@ import io.netty.util.concurrent.Promise;
 
 import org.d3.rpc.manage.World;
 import org.d3.rpc.net.bean.Request;
+import org.d3.rpc.net.bean.Response;
 import org.d3.rpc.net.channel.D3Channel;
 import org.d3.rpc.net.channel.D3Promise;
 import org.slf4j.Logger;
@@ -32,7 +35,7 @@ public interface SyncDispatchStrategy{
 				Promise<Object> promise = new D3Promise(d3Channel);
 				
 				req.setId(d3Channel.generateRequestIndex());
-				d3Channel.addPromise(1, promise);
+				d3Channel.addPromise(req.getId(), promise);
 				
 				ChannelFuture f = channel.writeAndFlush(req);
 				f.addListener(new ChannelFutureListener() {
@@ -45,11 +48,11 @@ public interface SyncDispatchStrategy{
 					}
 				});
 				
-				Object result = promise.get();
+				Object result = promise.get(3000, TimeUnit.MILLISECONDS);
 				return result;
 			} catch (Exception e) {
 				e.printStackTrace();
-				return null;
+				return Response.INVOKE_TIME_OUT;
 			}
 		}
 	};
