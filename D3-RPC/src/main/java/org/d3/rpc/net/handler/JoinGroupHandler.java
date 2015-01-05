@@ -14,6 +14,7 @@ import org.d3.rpc.net.node.Node;
 import org.d3.rpc.net.node.SimpleNode.NodeType;
 import org.d3.rpc.util.IdGenerator;
 import org.d3.rpc.util.NetUtil;
+import org.d3.rpc.util.ThreadPools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +39,10 @@ public class JoinGroupHandler extends SimpleChannelInboundHandler<Message> {
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		
 		NodeType type = node.type();
 		d3channel = new D3Channel(IdGenerator.autoIncrementId(), ctx.channel());
+		
 		switch(type){
 			case CLIENT:
 				askJoinGroup();
@@ -48,18 +51,18 @@ public class JoinGroupHandler extends SimpleChannelInboundHandler<Message> {
 				repJoinGroup();
 				break;
 		}
-		
 	}
 	
 	private void repJoinGroup() {
-		World.addChannel(d3channel);
-		World.defaultChannelGroup().add(d3channel);
+//		World.addChannel(d3channel);
+//		World.defaultChannelGroup().add(d3channel);
 	}
 
 	private void askJoinGroup(){
+		
 		LOG.debug("ask join group: {}", NetUtil.localHostName());
-		World.addChannel(d3channel);
-		World.defaultChannelGroup().add(d3channel);
+//		World.addChannel(d3channel);
+//		World.defaultChannelGroup().add(d3channel);
 		JoinGroupRequest msg = new JoinGroupRequest(NetUtil.localHostName());
 		d3channel.getChannel().writeAndFlush(msg);
 	}
@@ -67,23 +70,24 @@ public class JoinGroupHandler extends SimpleChannelInboundHandler<Message> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Message msg)
 			throws Exception {
+		
 		LOG.debug("joinGroupHandler: {}", node.type());
 		if(msg instanceof JoinGroupRequest){
 			JoinGroupRequest message = (JoinGroupRequest) msg;
-			node.add2Group(message.getGroupName(), d3channel);
+			node.addChannel(message.getGroupName(), d3channel);
 			JoinGroupResponse response = new JoinGroupResponse(message.getGroupName());
 			ctx.channel().writeAndFlush(response);
 			LOG.debug("response join group ask: {}", message.getGroupName());
 		}
 		else if(msg instanceof JoinGroupResponse){
 			JoinGroupResponse message = (JoinGroupResponse) msg;
-			node.add2Group(message.getGroupName(), d3channel);
+			node.addChannel(message.getGroupName(), d3channel);
 			latch.countDown();
 		}
 		else{
 			
 		}
-		ctx.pipeline().addLast(new MessageHandler(node, d3channel));
+		ctx.pipeline().addLast(ThreadPools.messagePool(), new MessageHandler(node, d3channel));
 		ctx.pipeline().remove(this);
 	}
 	

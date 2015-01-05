@@ -52,7 +52,7 @@ public class IO{
 				}
 			}
 			if(ioUsage > 0){
-				log.info("本节点磁盘IO使用率为: " + ioUsage);	
+//				log.info("本节点磁盘IO使用率为: " + ioUsage);	
 				ioUsage /= 100; 
 			}			
 			in.close();

@@ -84,8 +84,8 @@ public class Net{
 				//网口传输速度,单位为bps
 				float curRate = (float)(inSize2 - inSize1 + outSize2 - outSize1)*8/(1000000*interval);
 				netUsage = curRate/TotalBandwidth;
-				log.info("本节点网口速度为: " + curRate + "Mbps");
-				log.info("本节点网络带宽使用率为: " + netUsage);
+//				log.info("本节点网口速度为: " + curRate + "Mbps");
+//				log.info("本节点网络带宽使用率为: " + netUsage);
 			}				
 			in2.close();
 			pro2.destroy();

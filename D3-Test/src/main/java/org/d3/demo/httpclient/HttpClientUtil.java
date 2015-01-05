@@ -1,57 +1,56 @@
 package org.d3.demo.httpclient;
 
 import java.io.IOException;
-
-
-
-
-
-
 import java.util.LinkedList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class HttpClientUtil {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(HttpClientUtil.class);
 
-	private static DefaultHttpClient httpClient;
+	private static CloseableHttpClient httpClient;
 
 	static {
-		PoolingClientConnectionManager connectPool = new PoolingClientConnectionManager();
-		connectPool.setMaxTotal(20);
-		httpClient = new DefaultHttpClient(connectPool);
-		httpClient.getParams().setParameter("http.socket.timeout", 5000);
-		httpClient.getParams().setParameter("http.connection.timeout", 5000);
+		
+		RequestConfig requestConfig = RequestConfig.custom()
+			.setConnectTimeout(5000)
+			.setSocketTimeout(5000)
+			.build();
+		
+		PoolingHttpClientConnectionManager connectPool = new PoolingHttpClientConnectionManager();
+		connectPool.setMaxTotal(1000);
+		connectPool.setDefaultMaxPerRoute(1000);
+		httpClient = HttpClientBuilder.create()
+				.setConnectionManager(connectPool)
+				.setDefaultRequestConfig(requestConfig)
+				.setMaxConnTotal(1000)
+				.setMaxConnPerRoute(100)
+				.build();
 	}
 	
-	public static DefaultHttpClient getClient(){
+	public static CloseableHttpClient getClient(){
 		return httpClient;
 	}
 
-	public static String httpGet(String url) {
+	public static String doGet(String url) {
 		HttpGet httpMethod = new HttpGet(url);
+		
 		try {
 			return getContent(httpClient.execute(httpMethod));
 		} catch (IOException e) {

@@ -55,7 +55,7 @@ public class CPU {
 							totalCpuTime1 += Long.parseLong(s);
 						}
 					}	
-					log.info("IdleCpuTime: " + idleCpuTime1 + ", " + "TotalCpuTime" + totalCpuTime1);
+//					log.info("IdleCpuTime: " + idleCpuTime1 + ", " + "TotalCpuTime" + totalCpuTime1);
 					break;
 				}						
 			}	
@@ -85,7 +85,7 @@ public class CPU {
 							totalCpuTime2 += Long.parseLong(s);
 						}
 					}
-					log.info("IdleCpuTime: " + idleCpuTime2 + ", " + "TotalCpuTime" + totalCpuTime2);
+//					log.info("IdleCpuTime: " + idleCpuTime2 + ", " + "TotalCpuTime" + totalCpuTime2);
 					break;	
 				}								
 			}

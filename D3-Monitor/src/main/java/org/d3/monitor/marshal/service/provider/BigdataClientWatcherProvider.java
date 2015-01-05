@@ -12,12 +12,13 @@ public class BigdataClientWatcherProvider implements BigdataClientWatcher {
 		return false;
 	}
 
+	
+	private String vp = "D:/workspace/enteroctopus/enteroctopus/"
+			+ "enteroctopus-bigdata/enteroctopus-bigdata/src/main/resources/_prod/version";
+	private File version = new File(vp);
 	@Override
 	public long vlength() {
-		String versionPath = "D:/workspace/enteroctopus/enteroctopus/"
-				+ "enteroctopus-bigdata/enteroctopus-bigdata/src/main/resources/_prod/version";
-		File version = new File(versionPath);
-		System.out.println("length: " + version.length());
+//		System.out.println("length: " + version.length());
 		return version.length();
 	}
 

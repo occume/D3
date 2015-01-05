@@ -5,10 +5,12 @@ import java.util.Arrays;
 
 public class Reflections {
 	
-	public static Method getByParameter(Class<?> clazz, String paramType){
+	public static Method getByNameParameter(Class<?> clazz, String methodName, String paramType){
 		Method[] methods = clazz.getMethods();
 		for(Method method: methods){
-			if(paramType2String(method).equals(paramType)){
+			if(	method.getName().equals(methodName) 
+					&& 
+				paramType2String(method).equals(paramType)){
 				return method;
 			}
 		}

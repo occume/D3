@@ -25,12 +25,12 @@ public class Closer {
 	}
 	
 	public static void listen(Invokable invoker){
-		listen(invoker, ThreadPools.singleEventLoopGroup(), SHUTDOWN_PORT);
+		listen(invoker, ThreadPools.defaultPool10(), SHUTDOWN_PORT);
 	}
 	
 	public static void close(){
 		Bootstrap b = new Bootstrap();
-		b.group(ThreadPools.singleEventLoopGroup())
+		b.group(ThreadPools.defaultPool10())
 		 .channel(NioSocketChannel.class)
 		 .handler(new ChannelInitializer<Channel>() {
 			@Override
@@ -43,7 +43,7 @@ public class Closer {
 		future.addListener(new ChannelFutureListener() {
 	        @Override
 	        public void operationComplete(ChannelFuture future) {
-	        	ThreadPools.closeDefaultSingleEventLoopGroup();
+	        	ThreadPools.shutDown();
 	        }
 	    });
 	}
@@ -70,8 +70,7 @@ public class Closer {
 				 .childHandler(new ChannelInitializer<Channel>() {
 					protected void initChannel(Channel ch) throws Exception {
 						LOG.info("close command from: {}", ch);
-						invoker.invoke();
-						ThreadPools.closeDefaultSingleEventLoopGroup();
+						invoker.invoke(null);
 					}
 				});
 				

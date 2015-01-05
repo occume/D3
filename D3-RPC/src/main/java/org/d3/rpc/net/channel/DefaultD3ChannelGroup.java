@@ -3,6 +3,11 @@ package org.d3.rpc.net.channel;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.d3.rpc.net.node.Node;
+import org.d3.rpc.net.node.client.Client;
+import org.d3.rpc.net.node.client.SimpleClient;
+
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -24,9 +29,12 @@ public class DefaultD3ChannelGroup implements D3ChannelGroup{
             remove(future.channel());
         }
     };
+    
+    private Node node;
 	
-	public DefaultD3ChannelGroup(String name){
+	public DefaultD3ChannelGroup(String name, Node node){
 		this.name = name;
+		this.node = node;
 	}
 
 	@Override
@@ -77,17 +85,17 @@ public class DefaultD3ChannelGroup implements D3ChannelGroup{
 			int curr = index.get();
 			int add1 = curr + 1;
 			if(index.compareAndSet(curr, add1)){
+				
 				e.getChannel().closeFuture().addListener(remover);
 				channels.putIfAbsent(add1, e);
 				return true;
 			}
-			
 		}
 	}
 	
 	private int getKey(Channel channel){
 		for(Entry<Integer, D3Channel> c: channels.entrySet()){
-			if(channel.equals(c.getValue())){
+			if(channel == c.getValue().getChannel()){
 				return c.getKey();
 			}
 		}
@@ -95,10 +103,19 @@ public class DefaultD3ChannelGroup implements D3ChannelGroup{
 	}
 
 	public void remove(Channel channel){
+		
 		int key = getKey(channel);
+		
 		if(channels.remove(key) != null){
 			index.getAndDecrement();
 			channel.closeFuture().removeListener(remover);
+			
+			if(index.get() == 0){
+				if(node.isClient()){
+					Client client = (Client) node;
+					client.statu(SimpleClient.CLOSED);
+				}
+			}
 		}
 	}
 }

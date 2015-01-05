@@ -15,11 +15,22 @@ public class D3Channel {
 	
 	private ConcurrentHashMap<Long, Promise<Object>> promises = new ConcurrentHashMap<>();
 	
+	private ConcurrentHashMap<Long, InvokeFuture<Object>> futures = new ConcurrentHashMap<>();
+	
 	private AtomicLong requestIndex = new AtomicLong(1);
+	
+	public static ChannelFuture CANNOT_WRITE_NOW = null;
 	
 	public D3Channel(int id, Channel channel){
 		this.id = id;
 		this.channel = channel;
+	}
+	
+	public ChannelFuture send(Object req){
+//		if(!channel.isWritable())
+//			return CANNOT_WRITE_NOW;
+		ChannelFuture f = channel.writeAndFlush(req);
+		return f;
 	}
 
 	public int getId() {
@@ -48,6 +59,14 @@ public class D3Channel {
 	
 	public Promise<Object> getPromise(long key){
 		return promises.remove(key);
+	}
+	
+	public void addFuture(long key, InvokeFuture<Object> future){
+		futures.putIfAbsent(key, future);
+	}
+	
+	public InvokeFuture<Object> getFuture(long key){
+		return futures.get(key);
 	}
 	
 	public long promiseSize(){

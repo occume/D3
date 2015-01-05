@@ -18,7 +18,8 @@ public class ExecTest {
 //		
 		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
 		
-		String line = "D:/server/cwRsync/bin/rsync -vzrtopg /cygdrive/d/log/ 10.8.90.87::test";
+//		String line = "D:/server/cwRsync/bin/rsync -vzrtopg /cygdrive/d/log/ 10.8.90.87::test";
+		String line = "D:/server/cwRsync/bin/rsync -vzrtopg /cygdrive/d/log/ 10.8.74.7::test";
 		
 		CommandLine cmdLine = CommandLine.parse(line);
 		

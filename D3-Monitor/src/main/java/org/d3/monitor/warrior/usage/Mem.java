@@ -52,7 +52,7 @@ public class Mem{
 					freeMem = Long.parseLong(memInfo[1]);
 				}
 				memUsage = 1- (float)freeMem/(float)totalMem;
-				log.info("本节点内存使用率为: " + memUsage);	
+//				log.info("本节点内存使用率为: " + memUsage);	
 				if(++count == 2){
 					break;
 				}				

@@ -16,12 +16,19 @@ public class LaunchBigdataListener implements EventListener {
 	}
 	
 	public static class BigdataUpdater{
+		
 		public static void updateAndLauncher(){
 			String cmd = "rsync -r 10.8.90.87::octopus_bigdata /home/deploy/bigdata";
 			CmdExecutor.execute(cmd);
 			cmd = "sudo /home/deploy/bigdata/bigdata.sh start";
 			CmdExecutor.execute(cmd);
 		}
+		
+		public static void update(){
+			String cmd = "rsync -r 10.8.90.87::octopus_bigdata /home/deploy/bigdata";
+			CmdExecutor.execute(cmd);
+		}
+		
 		public static void updateAndRestart(){
 			String cmd = "rsync -r 10.8.90.87::octopus_bigdata /home/deploy/bigdata";
 			CmdExecutor.execute(cmd);

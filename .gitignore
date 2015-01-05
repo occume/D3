@@ -1,5 +1,10 @@
-*.project
-/target
-/.settings
-.classpath
 .myeclipse/
+/target
+ 
+/.settings
+/.externalToolBuilders
+.classpath
+.myumldata
+.project
+.springBeans
+hs*

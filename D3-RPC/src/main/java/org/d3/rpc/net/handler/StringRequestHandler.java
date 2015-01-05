@@ -24,8 +24,8 @@ public class StringRequestHandler extends SimpleChannelInboundHandler<String> {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		d3channel = new D3Channel(IdGenerator.autoIncrementId(), ctx.channel());
-		World.addChannel(d3channel);
-		World.defaultChannelGroup().add(d3channel);
+//		World.addChannel(d3channel);
+//		World.defaultChannelGroup().add(d3channel);
 	}
 
 	@Override

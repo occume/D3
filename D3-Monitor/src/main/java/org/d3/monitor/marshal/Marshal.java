@@ -1,6 +1,7 @@
 package org.d3.monitor.marshal;
 
 import org.d3.monitor.marshal.service.provider.BigdataClientWatcherProvider;
+import org.d3.monitor.marshal.service.provider.LoadTestProvider;
 import org.d3.monitor.marshal.service.provider.ReportProvider;
 import org.d3.rpc.net.node.server.SimpleServer;
 
@@ -13,6 +14,8 @@ public class Marshal {
 		
 		server.registerService(new ReportProvider());
 		server.registerService(new BigdataClientWatcherProvider());
+		server.registerService(new LoadTestProvider());
+		
 		System.out.println(server.getAllServices());
 	}
 	
