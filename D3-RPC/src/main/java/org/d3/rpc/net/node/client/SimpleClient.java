@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import org.d3.rpc.net.channel.DefaultD3ChannelGroup;
 import org.d3.rpc.net.codec.LengthBasedDecoder;
 import org.d3.rpc.net.codec.LengthBasedEncoder;
 import org.d3.rpc.net.handler.ChannelClosedHandler;
@@ -20,7 +17,6 @@ import org.d3.rpc.net.node.SimpleNode;
 import org.d3.rpc.util.ThreadPools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -29,7 +25,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 

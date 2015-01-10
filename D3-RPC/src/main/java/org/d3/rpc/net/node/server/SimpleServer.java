@@ -2,6 +2,7 @@ package org.d3.rpc.net.node.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -40,6 +41,7 @@ public class SimpleServer extends SimpleNode implements Server{
 			 .childHandler(initor())
 			 .option(ChannelOption.SO_BACKLOG, 128)
 			 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+//			 .childOption(ChannelOption.ALLOCATOR, UnpooledByteBufAllocator.DEFAULT)
 			 .childOption(ChannelOption.SO_RCVBUF, 1)
 			 ;
 			b.bind(PORT);

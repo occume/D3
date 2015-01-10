@@ -1,9 +1,7 @@
 package org.d3.monitor.portal;
 
 import java.io.IOException;
-
 import net.schmizz.sshj.SSHClient;
-import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 
 public class RedeployUat extends Redeploy {
 
