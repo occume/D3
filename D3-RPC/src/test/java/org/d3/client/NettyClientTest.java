@@ -26,7 +26,8 @@ public class NettyClientTest {
 		
 		final SimpleClient client = new SimpleClient();
 //		client.connect(new InetSocketAddress("127.0.0.1", 8082), new InetSocketAddress("127.0.0.1", 8083));
-		client.connect(new InetSocketAddress("127.0.0.1", 28256));
+//		client.connect(new InetSocketAddress("127.0.0.1", 28256));
+		client.connect();
 		System.out.println(client.ready());
 		if(!client.ready()) return;
 		client.registerService(new TestService());

@@ -17,7 +17,7 @@ public class ConfigWatcher implements Watcher {
 	}
 
 	public void displayConfig() throws InterruptedException, KeeperException {
-		String value = store.read("/d3-conf4", this);
+		String value = store.read(ConfigUpdater.PATH, this);
 		System.out.printf("Read %s as %s\n", ConfigUpdater.PATH, value);
 	}
 
@@ -41,8 +41,8 @@ public class ConfigWatcher implements Watcher {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		ConfigWatcher configWatcher = new ConfigWatcher("192.168.0.2");
-//		configWatcher.displayConfig();
+		ConfigWatcher configWatcher = new ConfigWatcher("127.0.0.1");
+		configWatcher.displayConfig();
 		// stay alive until process is killed or thread is interrupted
 		Thread.sleep(Long.MAX_VALUE);
 	}

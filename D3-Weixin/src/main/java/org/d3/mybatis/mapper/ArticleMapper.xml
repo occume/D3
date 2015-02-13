@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.d3.mybatis.mapper.ArticleMapper">
+
+  <cache />
+
+  <select id="getArticleByDocid" parameterType="string" resultType="Article">
+    SELECT
+          *
+    FROM wx_article
+    WHERE doc_id = #{docId}
+  </select>
+
+  <insert id="insertArticle" parameterType="Article">
+    INSERT INTO wx_article
+      (gzh, doc_id, title, content, url, img_link, source_name, open_id, date, last_modified, page_size, data_change_last_time)
+    VALUES
+      (#{gzh}, #{docid}, #{title1}, #{content}, #{url}, #{imglink}, #{sourcename}, #{openid}, #{date}, #{lastmodified}, #{pagesize}, #{happenTime})
+  </insert>
+
+</mapper>

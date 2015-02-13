@@ -15,8 +15,8 @@ public class CreateGroup extends ConnectionWatcher{
 	
 	public static void main(String...strings) throws IOException, InterruptedException, KeeperException{
 		CreateGroup c = new CreateGroup();
-		c.connect("192.168.0.2");
-		c.create("nbxx");
+		c.connect("127.0.0.1");
+		c.create("registry");
 		c.close();
 	}
 	

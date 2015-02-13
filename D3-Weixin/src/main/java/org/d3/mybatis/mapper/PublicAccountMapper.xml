@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.d3.mybatis.mapper.PublicAccountMapper">
+
+  <cache />
+
+  <select id="getAccountByEnName" parameterType="string" resultType="PublicAccount">
+    SELECT
+          *
+    FROM wx_gzh
+    WHERE en_name = #{enName}
+  </select>
+  
+  <select id="getAllAccounts" resultType="PublicAccount">
+    SELECT id, en_name as enName, url FROM wx_gzh
+  </select>
+
+  <insert id="insertAccount" parameterType="PublicAccount">
+    INSERT INTO wx_gzh
+      (cn_name, en_name, intro, img, qrcode, url)
+    VALUES
+      (#{cnName}, #{enName}, #{intro}, #{img}, #{qrcode}, #{url})
+  </insert>
+
+  <!--  
+  TODO MyBatis 3 does not map booleans to integers
+  <update id="updateProfile" parameterType="Account">
+    UPDATE PROFILE SET
+      LANGPREF = #{languagePreference},
+      FAVCATEGORY = #{favouriteCategoryId},
+      MYLISTOPT = #{listOption},
+      BANNEROPT = #{bannerOption}
+    WHERE USERID = #{username}
+  </update>
+  -->
+
+</mapper>

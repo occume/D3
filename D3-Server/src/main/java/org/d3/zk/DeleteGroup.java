@@ -23,8 +23,8 @@ public class DeleteGroup extends ConnectionWatcher {
 
 	public static void main(String...strings) throws IOException, InterruptedException, KeeperException{
 		DeleteGroup d = new DeleteGroup();
-		d.connect("192.168.0.2");
-		d.delete("nbxx");
+		d.connect("127.0.0.1");
+		d.delete("registry");
 		d.close();
 	}
 	

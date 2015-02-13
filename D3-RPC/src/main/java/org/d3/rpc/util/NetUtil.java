@@ -8,7 +8,7 @@ public class NetUtil {
 	
 
 	public static String localHostName(){
-		String host = Constants.Srings.EMPTY;
+		String host = Constant.Srings.EMPTY;
 		try {
 			host = InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException e) {

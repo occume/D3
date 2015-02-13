@@ -16,7 +16,7 @@ public class JoinGroup extends ConnectionWatcher{
 	
 	public static void main(String...strings) throws KeeperException, InterruptedException, IOException{
 		JoinGroup j = new JoinGroup();
-		j.connect("192.168.0.2");
+		j.connect("127.0.0.1");
 		j.join("nbxx", "jd");
 		j.close();
 	}

@@ -25,7 +25,6 @@ public class RedeployProd extends Redeploy {
 			+ "sudo ./startup.sh;";
 	
 	public static void redeploy() {
-
 		Node node = getNode(KEYS.PORTAL_PROD);
 		SSHClient client;
 		try {
@@ -36,7 +35,7 @@ public class RedeployProd extends Redeploy {
 			exec	(client, restart_tomcat);
 
 			client.close();
-		} catch (IOException e) {
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -48,5 +47,4 @@ public class RedeployProd extends Redeploy {
 //		exec	(client, "pwd");
 //		client.close();
 	}
-
 }

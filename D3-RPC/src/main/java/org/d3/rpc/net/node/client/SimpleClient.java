@@ -8,15 +8,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import org.d3.rpc.net.codec.LengthBasedDecoder;
 import org.d3.rpc.net.codec.LengthBasedEncoder;
 import org.d3.rpc.net.handler.ChannelClosedHandler;
 import org.d3.rpc.net.handler.ExceptionHandler;
 import org.d3.rpc.net.handler.JoinGroupHandler;
 import org.d3.rpc.net.node.SimpleNode;
+import org.d3.rpc.net.service.ServiceDiscovery;
 import org.d3.rpc.util.ThreadPools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Strings;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -51,6 +56,8 @@ public class SimpleClient extends SimpleNode implements Client{
 	
 	private CountDownLatch wait4Start = new CountDownLatch(CHANNEL_PER_NODE);
 	
+	private ServiceDiscovery serviceDiscovery;
+	
 	private Logger LOG = LoggerFactory.getLogger(SimpleClient.class);
 	
 	public SimpleClient(){
@@ -58,6 +65,7 @@ public class SimpleClient extends SimpleNode implements Client{
 		init();
 		
 		bootstrap = new Bootstrap();
+		serviceDiscovery = new ServiceDiscovery("127.0.0.1");
 	}
 	
 	private void init(){
@@ -82,20 +90,13 @@ public class SimpleClient extends SimpleNode implements Client{
 			throw new IllegalArgumentException("you should provide at least one address");
 		}
 		
-		Set<SocketAddress> addressSet = new HashSet<>();
-		for(SocketAddress address: addressArray){
-			addressSet.add(address);
-		}
-		
-		if(addressSet.size() == 0){
-			throw new IllegalArgumentException("0 address");
-		}
+		Set<SocketAddress> addressSet = getAddressSet(addressArray);
 		
 		Map<ChannelOption<? extends Object>, Object> options = getOptions();
 		for( ChannelOption key: options.keySet()){
 			bootstrap.option(key, options.get(key));
 		}
-		
+		System.out.println(addressArray);
 		bootstrap.group(getWorker());
 		bootstrap.channel(NioSocketChannel.class);
 		bootstrap.handler(initor());
@@ -108,7 +109,31 @@ public class SimpleClient extends SimpleNode implements Client{
 		doReconnect(addressSet);
 	}
 	
+	private Set<SocketAddress> getAddressSet(SocketAddress...addressArray){
+		if(addressArray == null || addressArray.length == 0){
+			throw new IllegalArgumentException("you should provide at least one address");
+		}
+		
+		Set<SocketAddress> addressSet = new HashSet<>();
+		for(SocketAddress address: addressArray){
+			addressSet.add(address);
+		}
+		
+		if(addressSet.size() == 0){
+			throw new IllegalArgumentException("0 address");
+		}
+		return addressSet;
+	}
+	
+	public void connect(){
+		String address = serviceDiscovery.discover();
+		String[] parts =  address.split("[:]");
+		SocketAddress socketAddress = new InetSocketAddress(parts[0], Integer.valueOf(parts[1]));
+		connect(socketAddress);
+	}
+	
 	private void doConnect(Set<SocketAddress> addressSet){
+		
 		for(SocketAddress socketAddress: addressSet){
 			final InetSocketAddress isa = (InetSocketAddress) socketAddress;
 			
@@ -131,7 +156,7 @@ public class SimpleClient extends SimpleNode implements Client{
 			 */
 			try {
 				wait4Start.await(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS);
-				
+				System.out.println(123123);
 				if(wait4Start.getCount() < CHANNEL_PER_NODE){
 					this.statu = CONNECTED;
 					wait4Start = new CountDownLatch(CHANNEL_PER_NODE);
@@ -142,10 +167,23 @@ public class SimpleClient extends SimpleNode implements Client{
 				else{
 					this.statu = CLOSED;
 				}
+				System.out.println(this.statu);
 			} catch (InterruptedException e) {
 				LOG.error(e.getMessage());
 			}
 		}
+	}
+	private void doConnect() {
+		String address = serviceDiscovery.discover();
+		System.out.println("::" + address);
+		if(Strings.isNullOrEmpty(address)){
+			SimpleClient.this.statu = CLOSED;
+			return;
+		}
+		String[] parts =  address.split("[:]");
+		SocketAddress socketAddress = new InetSocketAddress(parts[0], Integer.valueOf(parts[1]));
+		Set<SocketAddress> addressSet = getAddressSet(socketAddress);
+		doConnect(addressSet);
 	}
 	
 	private class ReconnectTask implements Runnable{
@@ -155,13 +193,14 @@ public class SimpleClient extends SimpleNode implements Client{
 		}
 		@Override
 		public void run() {
+			System.out.println("enter re task: " + SimpleClient.this.statu);
 			if(SimpleClient.this.statu == CONNECTED)return;
 			if(SimpleClient.this.statu == RECONNECTING)return;
 
 			LOG.info("do reconnect..., statu: {}", SimpleClient.this.ready());
 
 			SimpleClient.this.statu = RECONNECTING;
-			doConnect(addressSet);
+			doConnect();
 		}
 	}
 	

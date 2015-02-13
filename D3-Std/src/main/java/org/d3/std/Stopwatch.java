@@ -49,6 +49,10 @@ public class Stopwatch {
         return (now - start);
     }
     
+    public void printLong(){
+    	System.out.println("cost: " +longTime());
+    }
+    
     public void clear(){
     	start = System.currentTimeMillis();
     }

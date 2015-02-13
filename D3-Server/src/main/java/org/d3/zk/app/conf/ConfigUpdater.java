@@ -27,7 +27,7 @@ public class ConfigUpdater {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		ConfigUpdater configUpdater = new ConfigUpdater("192.168.0.2");
+		ConfigUpdater configUpdater = new ConfigUpdater("127.0.0.1");
 		configUpdater.run();
 	}
 }

@@ -13,9 +13,10 @@
 		<module>D3-Hadoop</module>
     	<module>D3-Gateway</module>
     	<module>D3-Spider</module>
-    	<module>D3-Test</module>
+    	<module>D3-Demo</module>
     	<module>D3-RPC</module>
     	<module>D3-Monitor</module>
+    	<module>D3-Weixin</module>
   </modules>
 
 	<build>

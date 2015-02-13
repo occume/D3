@@ -25,7 +25,7 @@ public class ListGroup extends ConnectionWatcher {
 	
 	public static void main(String...strings) throws IOException, InterruptedException{
 		ListGroup l = new ListGroup();
-		l.connect("192.168.0.2");
+		l.connect("127.0.0.1");
 		l.list("nbxx");
 		l.close();
 	}
