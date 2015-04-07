@@ -64,6 +64,16 @@ public class DateUtil {
         result &= date.getDate()==now.getDate();
         return result;
     }
+    /**
+     * 测试是否是当天
+     *
+     * @param date - 某一日期
+     * @return true-今天, false-不是
+     */
+    public static boolean isToday(String dateString) {
+        Date date = dateFormat(dateString, "yyyy-MM-dd HH:mm:ss");
+        return isToday(date);
+    }
  
     /**
      * 两个日期相减，取天数

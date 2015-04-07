@@ -171,7 +171,7 @@ public class CookiedHttpClient {
 			content = getContent(response);
 			List<Cookie> cookies = cookieStore.getCookies();
 			if (cookies.isEmpty()) {
-				System.out.println("None");
+				System.out.println("no cookies");
 			} else {
 				// 读取Cookie
 				for (int i = 0; i < cookies.size(); i++) {

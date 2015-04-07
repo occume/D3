@@ -1,4 +1,4 @@
-package org.d3.demo.nosql.redis;
+package org.d3.session;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -12,12 +12,19 @@ public class Redis {
 		JedisPoolConfig config = new JedisPoolConfig();
 		config.setMaxTotal(5);
 		config.setMaxIdle(5);
-//		config.setMaxWait(1000 * 100);
 		config.setTestOnBorrow(true);
 		
-//		pool = new JedisPool(config, "localhost");
-//		pool = new JedisPool(config, "10.8.89.244:11222");
-		pool = new JedisPool("10.8.89.244", 11224);
+		pool = new JedisPool(config, "localhost");
+	}
+	
+	public static void main(String...strings){
+		execute(new Invocable() {
+			
+			@Override
+			public void invoke(Jedis jedis) {
+				System.out.println(jedis.exists("123"));
+			}
+		});
 	}
 	
 	public static Jedis get(){

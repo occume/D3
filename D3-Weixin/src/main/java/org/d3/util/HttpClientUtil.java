@@ -21,8 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class HttpClientUtil {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(HttpClientUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtil.class);
 
 	private static CloseableHttpClient httpClient;
 
@@ -53,16 +52,12 @@ public class HttpClientUtil {
 		
 		try {
 			return getContent(httpClient.execute(httpMethod));
-		} catch (IOException e) {
+		}catch(Exception e){
 			LOGGER.error("", e.getMessage());
-			return null;
-		}	catch(Exception e)
-		{
-			return null;
-		}
-		finally {
+		}finally{
 			httpMethod.releaseConnection();
 		}
+		return null;
 	}
 	
 	public static List<Header> httpGetHeaders(String url)
@@ -97,8 +92,7 @@ public class HttpClientUtil {
 	{
 		Header[] headers = httpResponse.getAllHeaders();
 		List<Header> headerList=new LinkedList<Header>();
-		for(Header tempHeader:headers)
-		{
+		for(Header tempHeader:headers){
 			headerList.add(tempHeader);
 		}
 		return headerList;

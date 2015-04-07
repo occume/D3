@@ -17,6 +17,7 @@
     	<module>D3-RPC</module>
     	<module>D3-Monitor</module>
     	<module>D3-Weixin</module>
+    	<module>D3-Tomcat</module>
   </modules>
 
 	<build>

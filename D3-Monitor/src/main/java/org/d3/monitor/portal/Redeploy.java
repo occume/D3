@@ -35,6 +35,12 @@ public class Redeploy {
 		public static final String PORTAL_FAT = "porta_fat";
 		public static final String PORTAL_UAT = "porta_uat";
 		public static final String PORTAL_PROD = "porta_prod";
+		
+		public static final String PORTAL_PROD_NEW = "porta_prod";
+		public static final String MYCITY = "mycity";
+		
+		public static final String SERVER178 = "server178";
+		public static final String SERVER179 = "server179";
 	}
 	
 	protected static Map<String, Node> nodes = new HashMap<String, Redeploy.Node>();
@@ -47,6 +53,11 @@ public class Redeploy {
 		nodes.put(KEYS.PORTAL_FAT,  new Node("10.2.5.82", 	 22,  	"fxUser",   ")OKM9ijn"));
 		nodes.put(KEYS.PORTAL_UAT,  new Node("10.2.254.205", 1022,  "op1",    	"Ctrip777"));
 		nodes.put(KEYS.PORTAL_PROD, new Node("10.8.74.7", 	 1022,  "op1",    	"1qaz2wsx#EDC$RFV"));
+		nodes.put(KEYS.PORTAL_PROD_NEW, new Node("10.8.92.9",1022,  "op1",    	"superoctopus1124"));
+		nodes.put(KEYS.MYCITY, new Node("112.124.115.136",		22,  "root",    	"Ggshop05221066"));
+		
+		nodes.put(KEYS.SERVER178, new Node("10.8.2.178",1022,  "op1",    	"s6zdzKuv,qMrobxt8"));
+		nodes.put(KEYS.SERVER179, new Node("10.8.2.179",1022,  "op1",    	"s6zdzKuv,qMrobxt8"));
 	}
 	
 	public static Node getNode(String key){

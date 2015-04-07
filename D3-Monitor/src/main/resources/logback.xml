@@ -20,16 +20,21 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 	</appender>
+	
+	<logger name="ch.qos.logback" additivity="true">
+		<level value="error" />
+		<appender-ref ref="d3" />
+	</logger>
 
 	<logger name="org.d3.rpc" additivity="true">
-		<level value="debug" />
+		<level value="error" />
 		<appender-ref ref="d3" />
 	</logger>
 
 	<!-- ===================================================================== -->
 	<!-- Root logger 记录配置 -->
 	<!-- ===================================================================== -->
-	<root level="info">
+	<root level="error">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>
