@@ -17,8 +17,8 @@ public class RedeployMycity extends Redeploy {
 			+ "rm mycity.war";
 
 	private static String 
-			localPath = "D:\\Workspaces2014\\MyCity\\target\\mycity.jar",
-			remotePath = "/usr/local/tomcat8/webapps/mycity/WEB-INF/lib/mycity.jar";
+			localPath = "D:\\Workspaces2014\\ZiuWan\\target\\ziuwan.jar",
+			remotePath = "/usr/local/tomcat8/webapps/ziuwan/WEB-INF/lib/ziuwan.jar";
 
 //	private static String restart_tomcat = "cd /usr/local/tomcat8/bin;"
 //			+ "./shutdown.sh;"

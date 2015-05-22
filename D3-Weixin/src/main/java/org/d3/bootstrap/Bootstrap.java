@@ -7,6 +7,7 @@ import org.d3.context.SpringConfig;
 import org.d3.wx.collector.ArticleCollector;
 import org.d3.wx.collector.Collector;
 import org.d3.wx.collector.GZHCollector;
+import org.d3.wx.collector.ZhihuCollector;
 import org.d3.wx.writer.Storage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -29,8 +30,9 @@ public class Bootstrap {
 
 	public void start(){
 		Set<Service> services = Sets.newLinkedHashSet();
-		services.add(new GZHCollectorService());
-		services.add(new ArticleCollectorService());
+//		services.add(new GZHCollectorService());
+//		services.add(new ArticleCollectorService());
+		services.add(new ZhihuCollectorService());
 		
 		ServiceManager serviceManager = new ServiceManager(services);
 		serviceManager.addListener(new StartListener());
@@ -45,7 +47,7 @@ public class Bootstrap {
 
 		@Override
 		protected void doStart() {
-			Collector c = new GZHCollector("兰州", 1);
+			Collector c = new GZHCollector("游戏", 1);
 			Storage storage = (Storage) D3Context.getBean("storage");
 			c.storage(storage);
 			c.execute();
@@ -67,6 +69,27 @@ public class Bootstrap {
 		@Override
 		protected void doStart() {
 			Collector c = new ArticleCollector();
+			Storage storage = (Storage) D3Context.getBean("storage");
+			c.storage(storage);
+			c.execute();
+		}
+
+		@Override
+		protected void doStop() {
+			
+		}
+	}
+	
+	/**
+	 * 知乎  问答 采集服务
+	 * @author d_jin
+	 *
+	 */
+	private static class ZhihuCollectorService extends AbstractService{
+
+		@Override
+		protected void doStart() {
+			Collector c = new ZhihuCollector();
 			Storage storage = (Storage) D3Context.getBean("storage");
 			c.storage(storage);
 			c.execute();

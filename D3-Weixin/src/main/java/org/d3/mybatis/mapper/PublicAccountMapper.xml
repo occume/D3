@@ -14,14 +14,14 @@
   </select>
   
   <select id="getAllAccounts" resultType="PublicAccount">
-    SELECT id, en_name as enName, url FROM wx_gzh
+    SELECT id, en_name as enName, url FROM wx_gzh where type = 2
   </select>
 
   <insert id="insertAccount" parameterType="PublicAccount">
     INSERT INTO wx_gzh
-      (cn_name, en_name, intro, img, qrcode, url)
+      (cn_name, en_name, intro, img, qrcode, url, `type`)
     VALUES
-      (#{cnName}, #{enName}, #{intro}, #{img}, #{qrcode}, #{url})
+      (#{cnName}, #{enName}, #{intro}, #{img}, #{qrcode}, #{url}, #{type})
   </insert>
 
   <!--  

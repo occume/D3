@@ -43,5 +43,11 @@
 			<version>2.6.0</version>
 		</dependency>
 		
+		<dependency>
+		<groupId>org.d3</groupId>
+    	<artifactId>D3-Std</artifactId>
+   		<version>0.0.1</version>
+   	</dependency>
+		
   </dependencies>
 </project>

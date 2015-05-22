@@ -18,6 +18,7 @@
     	<module>D3-Monitor</module>
     	<module>D3-Weixin</module>
     	<module>D3-Tomcat</module>
+    	<module>D3-lucene</module>
   </modules>
 
 	<build>

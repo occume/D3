@@ -85,7 +85,8 @@ public class Storage {
 		UncaughtExceptionHandler eh = new UncaughtExceptionHandler() {
 			@Override
 			public void uncaughtException(Thread t, Throwable e) {
-				Thread.dumpStack();
+//				Thread.dumpStack();
+				e.printStackTrace();
 				startGZHWorker();
 			}
 		};

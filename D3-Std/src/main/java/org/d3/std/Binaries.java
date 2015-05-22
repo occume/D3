@@ -1,5 +1,18 @@
 package org.d3.std;
 
+import org.apache.commons.codec.binary.Hex;
+
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BinaryTreeTraverser;
+import com.google.common.hash.Hashing;
+import com.google.common.io.BaseEncoding;
+import com.google.common.io.ByteSource;
+import com.google.common.math.DoubleMath;
+import com.google.common.primitives.Bytes;
+
 public class Binaries {
 	
 	private static String hexStr = "0123456789ABCDEF";
@@ -12,7 +25,7 @@ public class Binaries {
 	 * @return
 	 */
 	public static String bytes2BinaryStr(byte[] bArray) {
-
+		
 		String outStr = "";
 		int pos = 0;
 		for (byte b : bArray) {
@@ -22,12 +35,11 @@ public class Binaries {
 			outStr += binaryArray[pos];
 		}
 		return outStr;
-
 	}
 
 	/**
 	 * 
-	 * @param bytes
+	 * @param bytes0
 	 * @return 
 	 */
 	public static String BinaryToHexString(byte[] bytes) {

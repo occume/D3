@@ -29,6 +29,10 @@ public class D3Channel {
 	public ChannelFuture send(Object req){
 //		if(!channel.isWritable())
 //			return CANNOT_WRITE_NOW;
+		/**
+		 * TODO 
+		 * if we can move the reconnect() here?
+		 */
 		ChannelFuture f = channel.writeAndFlush(req);
 		return f;
 	}

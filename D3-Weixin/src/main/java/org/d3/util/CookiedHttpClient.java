@@ -85,8 +85,7 @@ public class CookiedHttpClient {
 		Registry<CookieSpecProvider> r = RegistryBuilder
 				.<CookieSpecProvider> create()
 				.register(CookieSpecs.BEST_MATCH, new BestMatchSpecFactory())
-				.register(CookieSpecs.BROWSER_COMPATIBILITY,
-						new BrowserCompatSpecFactory())
+				.register(CookieSpecs.BROWSER_COMPATIBILITY, new BrowserCompatSpecFactory())
 				.register("easy", easySpecProvider).build();
 
 		RequestConfig requestConfig = RequestConfig.custom()
@@ -211,7 +210,7 @@ public class CookiedHttpClient {
 		List<Header> hds = new ArrayList<>(10);
 		hds.add(new BasicHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
 		hds.add(new BasicHeader("Accept-Encoding", "gzip, deflate"));
-		hds.add(new BasicHeader("Accept-Language", "en-US,en;q=0.5"));
+		hds.add(new BasicHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3"));
 		hds.add(new BasicHeader("Cache-Control", "max-age=0"));
 		hds.add(new BasicHeader("Connection", "keep-alive"));
 		hds.add(new BasicHeader("Host", "weixin.sogou.com"));

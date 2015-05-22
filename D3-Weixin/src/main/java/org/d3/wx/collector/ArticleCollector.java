@@ -56,7 +56,7 @@ public class ArticleCollector implements Runnable, Collector{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				execute();
+//				execute();
 			}
 		};
 		t.setUncaughtExceptionHandler(eh);
@@ -80,15 +80,16 @@ public class ArticleCollector implements Runnable, Collector{
 	}
 
 	public void collect(PublicAccount account){
-		switch(currStep){
-			case REQUEST:
-				request(account);
-			case PARSE_LIST:
-				parseList(account);
-			case BREAK:
-			default:
-				break;
-		}
+//		switch(currStep){
+//			case REQUEST:
+//				request(account);
+//			case PARSE_LIST:
+//				parseList(account);
+//			case BREAK:
+//			default:
+//				break;
+//		}
+		parseList(account);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -107,9 +108,19 @@ public class ArticleCollector implements Runnable, Collector{
         }
 	}
 	public void parseList(PublicAccount account){
+		String url = account.getUrl();
+		url = url.replace("/gzh", "/gzhjs");
+		System.out.println(url);
+		content = CookiedHttpClient.doArticleGet(url);
+		currStep = Step.PARSE_LIST;
+        if(Strings.isNullOrEmpty(content)){
+        	currStep = Step.BREAK;
+        }
 		System.out.println(content);
-		content = content.substring(5, content.indexOf("})") + 1);
-		
+		if(content.contains("gzh(")){
+			content = content.substring(5, content.indexOf("})") + 1);
+		}
+		System.out.println(content);
 		try {
 			JSONObject jobj = new JSONObject(content);
 			JSONArray items = jobj.getJSONArray("items");
@@ -128,8 +139,11 @@ public class ArticleCollector implements Runnable, Collector{
 				
 				for(String filed: fields){
 					Elements fieldElment = display.getElementsByTag(filed);
-					String fieldValue = fieldElment.first().text();
-					fillArticle(filed, fieldValue, article);
+					Element first = fieldElment.first();
+					if(first != null){
+						String fieldValue = fieldElment.first().text();
+						fillArticle(filed, fieldValue, article);
+					}
 				}
 
 				Elements epageSize = display.getElementsByTag("pagesize");
@@ -140,14 +154,16 @@ public class ArticleCollector implements Runnable, Collector{
 				
 				article.setPagesize(Integer.valueOf(pageSize.substring(0, pageSize.length() - 1)));
 				article.setLastmodified(lm);
+				
 //				System.out.println(article);
 				if(isToday(lm)){
 					article.setGzh(account.getEnName());
+					article.setCommunity("WX");
 					storage.writeArticle(article);
 				}
 			}
-		} catch (JSONException e) {
-			currStep = Step.BREAK;
+		} catch (Exception e) {
+//			currStep = Step.BREAK;
 			e.printStackTrace();
 			return;
 		}

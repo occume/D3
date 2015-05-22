@@ -16,6 +16,7 @@ public class PublicAccount implements Serializable{
 	private String img;
 	private String qrcode;
 	private String url;
+	private int		type;
 	
 	public PublicAccount(){}
 	
@@ -70,6 +71,14 @@ public class PublicAccount implements Serializable{
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	@Override

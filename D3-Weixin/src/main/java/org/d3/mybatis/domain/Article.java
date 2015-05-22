@@ -18,6 +18,7 @@ public class Article {
 	private int pagesize;
 	private Date postTime;
 	private Date happenTime = new Date();
+	private String community;
 	
 	public int getId() {
 		return id;
@@ -104,6 +105,13 @@ public class Article {
 	}
 	public void setHappenTime(Date happenTime) {
 		this.happenTime = happenTime;
+	}
+	
+	public String getCommunity() {
+		return community;
+	}
+	public void setCommunity(String community) {
+		this.community = community;
 	}
 	@Override
 	public String toString() {

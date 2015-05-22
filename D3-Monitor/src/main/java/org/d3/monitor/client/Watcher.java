@@ -75,9 +75,9 @@ public class Watcher {
 					}
 					else{
 						System.err.println(node.clientCode + "   " + line);
-						System.out.print("......upload client.properties");
-						upload	(client, localServerPath, 	remoteServerPath);
-						System.out.println("......upload ok");
+//						System.out.print("......upload client.properties");
+//						upload	(client, localServerPath, 	remoteServerPath);
+//						System.out.println("......upload ok");
 					}
 					
 				}
@@ -166,6 +166,7 @@ public class Watcher {
 	private static String transform(String clientCode){
 		if(clientCode.contains("NT")) return "NT";
 		else if(clientCode.contains("CD")) return "CD";
+		else if(clientCode.contains("NJ")) return "NJ";
 		else if(clientCode.contains("OY")) return "OY";
 		else if(clientCode.contains("SZ")) return "SZ";
 		else if(clientCode.contains("HZ")) return "HZ";

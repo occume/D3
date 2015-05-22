@@ -48,9 +48,6 @@ public class UploadAccessor{
 
 	public static void main(String...strings) throws IOException{
 		File file = new File("d:\\Users\\d_Jin\\Desktop\\work\\lib.gz");
-		System.out.println(file.getName());
-//		InputStream in = new FileInputStream(file);
-//		Files.toByteArray(file);
 		post(file.getName(), "application/octet-stream", Files.toByteArray(file));
 	}
 }

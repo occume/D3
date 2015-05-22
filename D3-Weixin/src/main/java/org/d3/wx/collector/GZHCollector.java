@@ -134,6 +134,7 @@ public class GZHCollector implements Runnable, Collector{
 			acc.setUrl(href);
 			acc.setImg(img);
 			acc.setQrcode(qrcode);
+			acc.setType(2);
 			System.out.println(acc);
 			
 			writer.writeAccount(acc);

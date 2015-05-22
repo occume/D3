@@ -8,6 +8,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.catalina.Container;
@@ -17,6 +20,7 @@ import org.apache.catalina.LifecycleState;
 import org.apache.catalina.Manager;
 import org.apache.catalina.Session;
 import org.apache.catalina.SessionIdGenerator;
+import org.apache.catalina.WebResourceSet;
 import org.apache.catalina.util.LifecycleMBeanBase;
 import org.apache.catalina.util.StandardSessionIdGenerator;
 import org.apache.juli.logging.Log;
@@ -67,9 +71,9 @@ public class RedisSessionManager extends LifecycleMBeanBase implements Manager{
         	context.getPipeline().addValve(new RedisSessionValve(this));
         }
         setState(LifecycleState.STARTING);
-        log.info("RedisSessionManager is started...");
+        log.info("RedisSessionManager is started..." + getClass().getClassLoader());
     }
-
+	
 	@Override
 	public Session findSession(String id) throws IOException {
 		

@@ -15,9 +15,11 @@
 
   <insert id="insertArticle" parameterType="Article">
     INSERT INTO wx_article
-      (gzh, doc_id, title, content, url, img_link, source_name, open_id, date, last_modified, page_size, data_change_last_time)
+      (gzh, doc_id, title, content, url, img_link, source_name, 
+      open_id, date, last_modified, page_size, data_change_last_time, community)
     VALUES
-      (#{gzh}, #{docid}, #{title1}, #{content}, #{url}, #{imglink}, #{sourcename}, #{openid}, #{date}, #{lastmodified}, #{pagesize}, #{happenTime})
+      (#{gzh}, #{docid}, #{title1}, #{content}, #{url}, #{imglink}, #{sourcename},
+       #{openid}, #{date}, #{lastmodified}, #{pagesize}, #{happenTime}, #{community})
   </insert>
 
 </mapper>
